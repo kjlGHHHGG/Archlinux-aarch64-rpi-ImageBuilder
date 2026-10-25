@@ -435,7 +435,7 @@ install_kernel() {
 install_packages() {
     log_info "Installing packages..."
 
-    arch-chroot "$MOUNT_DIR" /usr/bin/pacman -S --noconfirm $OS_PACKAGES
+    arch-chroot "$MOUNT_DIR" /usr/bin/pacman -S --noconfirm $OS_PACKAGES lxde-common lxsession lxpanel pcmanfm lightdm lightdm-gtk-greeter xorg-server xorg-xinit iptables-nft wireguard-tools
 
     log_success "Packages installed"
 }
