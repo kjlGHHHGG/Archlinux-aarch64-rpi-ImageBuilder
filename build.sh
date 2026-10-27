@@ -423,9 +423,8 @@ install_kernel() {
             linux-rpi-16k rpi5-eeprom
     elif [[ "$RPI_MODEL" == "4" ]]; then
         log_info "Installing linux-rpi and rpi4-eeprom for RPi 4..."
-        arch-chroot "$MOUNT_DIR" /usr/bin/pacman -S --noconfirm --overwrite "/boot/*" linux-rpi rpi4-eeprom fluxbox xterm xorg-server xorg-xinit iptables-nft wireguard-tools hostapd dnsmasq sing-box iproute2 wget unzip
-        arch-chroot "$MOUNT_DIR" /usr/bin/bash -c "echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.d/30-ipforward.conf && echo -n ' copytoram' >> /boot/cmdline.txt"
-        arch-chroot "$MOUNT_DIR" /usr/bin/bash -c "cd /tmp && curl -L -O https://ghproxy.com && curl -L -O https://ghproxy.com && curl -L -O https://ghproxy.com && unzip -q -j Xray-linux-arm64.zip 'xray' -d /usr/bin/ && mv spoofdpi-linux-arm64 /usr/bin/spoofdpi && tar -xzf mihomo-tui-linux-arm64.tar.gz -C /usr/bin/ && chmod +x /usr/bin/xray /usr/bin/spoofdpi /usr/bin/mihomo-tui" 
+        arch-chroot "$MOUNT_DIR" /usr/bin/pacman -S --noconfirm --overwrite "/boot/*" linux-rpi rpi4-eeprom fluxbox xterm xorg-server xorg-xinit iptables-nft wireguard-tools hostapd dnsmasq sing-box v2ray-core iproute2 spoofdpi
+        arch-chroot "$MOUNT_DIR" /usr/bin/bash -c "echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.d/30-ipforward.conf && echo -n ' copytoram' >> /boot/cmdline.txt" 
     else
         die "Unsupported RPI_MODEL: $RPI_MODEL (must be 4 or 5)"
     fi
