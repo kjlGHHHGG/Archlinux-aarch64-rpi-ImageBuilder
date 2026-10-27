@@ -423,9 +423,9 @@ install_kernel() {
             linux-rpi-16k rpi5-eeprom
     elif [[ "$RPI_MODEL" == "4" ]]; then
         log_info "Installing linux-rpi and rpi4-eeprom for RPi 4..."
-        arch-chroot "$MOUNT_DIR" /usr/bin/pacman -S --noconfirm --overwrite "/boot/*" linux-rpi rpi4-eeprom fluxbox xterm xorg-server xorg-xinit iptables-nft wireguard-tools overlayfs-tools fsprotect hostapd dnsmasq xray sing-box iproute2 
+        arch-chroot "$MOUNT_DIR" /usr/bin/pacman -S --noconfirm --overwrite "/boot/*" linux-rpi rpi4-eeprom fluxbox xterm xorg-server xorg-xinit iptables-nft wireguard-tools hostapd dnsmasq sing-box iproute2 
             linux-rpi rpi4-eeprom 
-            arch-chroot "$MOUNT_DIR" /usr/bin/bash -c "echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.d/30-ipforward.conf"
+            arch-chroot "$MOUNT_DIR" /usr/bin/bash -c "curl -L https://github.com -o /tmp/xray.zip && pacman -S --noconfirm unzip && unzip /tmp/xray.zip -d /usr/bin/ && echo -n ' copytoram' >> /boot/cmdline.txt" 
     else
         die "Unsupported RPI_MODEL: $RPI_MODEL (must be 4 or 5)"
     fi
