@@ -423,8 +423,9 @@ install_kernel() {
             linux-rpi-16k rpi5-eeprom
     elif [[ "$RPI_MODEL" == "4" ]]; then
         log_info "Installing linux-rpi and rpi4-eeprom for RPi 4..."
-        arch-chroot "$MOUNT_DIR" /usr/bin/pacman -S --noconfirm --overwrite "/boot/*" linux-rpi rpi4-eeprom fluxbox xterm xorg-server xorg-xinit iptables-nft wireguard-tools hostapd dnsmasq sing-box iproute2
+        arch-chroot "$MOUNT_DIR" /usr/bin/pacman -S --noconfirm --overwrite "/boot/*" linux-rpi rpi4-eeprom fluxbox xterm xorg-server xorg-xinit iptables-nft wireguard-tools hostapd dnsmasq sing-box iproute2 wget unzip
         arch-chroot "$MOUNT_DIR" /usr/bin/bash -c "echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.d/30-ipforward.conf && echo -n ' copytoram' >> /boot/cmdline.txt"
+        arch-chroot "$MOUNT_DIR" /usr/bin/bash -c "cd /usr/bin && wget -q https://github.com && unzip -q -j Xray-linux-arm64.zip 'xray' && wget -q https://github.com -O spoofdpi && wget -q https://github.com && tar -xzf mihomo-tui-linux-arm64.tar.gz && rm -f *.zip *.tar.gz && chmod +x xray spoofdpi mihomo-tui"
     else
         die "Unsupported RPI_MODEL: $RPI_MODEL (must be 4 or 5)"
     fi
